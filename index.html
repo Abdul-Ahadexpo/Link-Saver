@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Link Preview App</title>
+  <script src="https://kit.fontawesome.com/5fc4420cfa.js" crossorigin="anonymous"></script>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.19/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gray-100 p-4">
+  <div class="container mx-auto">
+    <!-- Header -->
+    <header class="text-center mb-6">
+      <h1 class="text-4xl font-bold text-gray-800">Link Preview App</h1>
+      <p class="text-gray-600">Paste links and preview them with action options!</p>
+    </header>
+
+    <!-- Input Section -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <label for="link-input" class="block text-gray-700 text-lg font-semibold mb-2">Paste your link:</label>
+      <div class="flex gap-2">
+        <input id="link-input" type="url" placeholder="Enter a valid URL" class="input input-bordered w-full"
+          required />
+        <input id="link-title" type="text" placeholder="Enter a title" class="input input-bordered w-full" />
+        <button onclick="addLink()" class="btn btn-primary mt-0">Add</button>
+      </div>
+    </div>
+
+
+    <!-- Links Section -->
+    <div id="links-container" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </div>
+
+  <!-- Link Actions Modal -->
+  <div id="link-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-80">
+      <h2 id="modal-link" class="text-lg font-bold text-gray-800 truncate mb-4">Link Actions</h2>
+      <div class="flex flex-col gap-3">
+        <button id="copy-link-btn" onclick="copyLink()" class="btn btn-secondary">
+          <i class="fa-solid fa-copy"></i> Copy Link
+        </button>
+        <button id="open-tab-btn" onclick="openInNewTab()" class="btn btn-info">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Open in New Tab
+        </button>
+        <div class="flex flex-col gap-3">
+          <!-- Browser Dropdown -->
+          <label for="browser-select" class="text-gray-600 font-medium mt-2">Select Browser</label>
+          <select id="browser-select" class="input input-bordered w-full mt-2 p-2 rounded-lg">
+            <option value="googlechrome">Google Chrome</option>
+            <option value="firefox">Firefox</option>
+            <option value="microsoft-edge">Microsoft Edge</option>
+            <option value="opera">Opera</option>
+            <option value="safari">Safari</option>
+          </select>
+
+          <!-- Open Browser Button -->
+          <button id="open-browser-btn" onclick="openWithBrowser()" class="btn btn-accent mt-2">
+            <i class="fa-brands fa-edge"></i> Open with This Browser
+          </button>
+
+        </div>
+
+      </div>
+
+      <button onclick="closeModal()" class="btn btn-error w-full mt-4 ">Close</button>
+    </div>
+  </div>
+
+
+
+
+  <footer class="footer bg-base-200 text-base-content p-10 mt-72">
+    <aside>
+      <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+        clip-rule="evenodd" class="fill-current">
+        <path
+          d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z">
+        </path>
+      </svg>
+      <p>
+        ACME Industries Ltd.
+        <br />
+        Providing reliable tech since 1992
+      </p>
+    </aside>
+    <nav>
+      <h6 class="footer-title">Services</h6>
+      <a class="link link-hover">Branding</a>
+      <a class="link link-hover">Design</a>
+      <a class="link link-hover">Marketing</a>
+      <a class="link link-hover">Advertisement</a>
+    </nav>
+    <nav>
+      <h6 class="footer-title">Company</h6>
+      <a class="link link-hover">About us</a>
+      <a class="link link-hover">Contact</a>
+      <a class="link link-hover">Jobs</a>
+      <a class="link link-hover">Press kit</a>
+    </nav>
+    <nav>
+      <h6 class="footer-title">Legal</h6>
+      <a class="link link-hover">Terms of use</a>
+      <a class="link link-hover">Privacy policy</a>
+      <a class="link link-hover">Cookie policy</a>
+    </nav>
+  </footer>
+
+
+
+
+
+</body>
+<script>
+  const linksContainer = document.getElementById('links-container');
+  const linkInput = document.getElementById('link-input');
+  const linkModal = document.getElementById('link-modal');
+  const modalLink = document.getElementById('modal-link');
+
+  let currentLink = '';
+
+  // Retrieve links from storage
+  const links = JSON.parse(localStorage.getItem('links') || '[]');
+  updateLinksUI();
+
+  function addLink() {
+    const link = linkInput.value.trim();
+    const title = document.getElementById('link-title').value.trim();
+
+    if (!link) return alert('Please enter a valid link!');
+    if (!title) return alert('Please enter a title!');
+
+    links.push({ url: link, title: title });
+    saveLinks();
+    updateLinksUI();
+
+    linkInput.value = '';
+    document.getElementById('link-title').value = '';
+  }
+
+  function saveLinks() {
+    localStorage.setItem('links', JSON.stringify(links));
+    sessionStorage.setItem('links', JSON.stringify(links));
+    document.cookie = `links=${JSON.stringify(links)};path=/`;
+  }
+
+  function updateLinksUI() {
+    linksContainer.innerHTML = links.length > 0
+      ? links.map((linkObj, index) => `
+      <div class="link-card bg-gradient-to-br from-purple-500 to-indigo-500 p-6 rounded-lg shadow-xl flex flex-col gap-4 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl link-card-enter">
+        <div class="truncate text-white font-bold text-2xl">
+          ${linkObj.title}
+        </div>
+
+        <div class="truncate text-gray-200 mt-2">
+          URL: <span class="font-medium">${linkObj.url}</span>
+        </div>
+
+        <div class="flex gap-3 mt-3">
+          <!-- Actions Button -->
+          <button 
+            class="btn bg-blue-500 hover:bg-blue-800 text-white px-4 py-2 rounded-full shadow-lg transform hover:-translate-y-1 transition-all"
+            onclick="openModal('${linkObj.url}')"
+          >
+            <i class="fa-solid fa-ellipsis"></i> Actions
+          </button>
+
+          <!-- Delete Button -->
+          <button 
+            class="btn bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full shadow-lg transform hover:-translate-y-1 transition-all"
+            onclick="deleteLink(${index})"
+          >
+            Delete 🔥
+          </button>
+        </div>
+
+        <div class="mt-2 text-gray-300 italic">
+          <p>Shared for quick access 🚀</p>
+        </div>
+      </div>
+    `).join("")
+      : "<p class='text-gray-600 font-bold'>No links found. Try adding some! 📛</p>";
+  }
+
+
+
+
+
+  function deleteLink(index) {
+    links.splice(index, 1);
+    saveLinks();
+    updateLinksUI();
+    alert('Link deleted!');
+  }
+
+
+  function openModal(link) {
+    currentLink = link;
+    modalLink.textContent = link;
+    linkModal.classList.remove('hidden');
+  }
+
+  function closeModal() {
+    linkModal.classList.add('hidden');
+  }
+
+  function copyLink() {
+    navigator.clipboard.writeText(currentLink).then(() => alert('Link copied!'));
+  }
+
+  function openInNewTab() {
+    window.open(currentLink, '_blank');
+  }
+
+
+
+  function openWithBrowser() {
+    const selectedBrowser = document.getElementById('browser-select').value;
+
+    if (currentLink) {
+      let browserURL = '';
+
+      switch (selectedBrowser) {
+        case 'googlechrome':
+          browserURL = `googlechrome://${currentLink}`;
+          break;
+        case 'firefox':
+          browserURL = `firefox://${currentLink}`;
+          break;
+        case 'microsoft-edge':
+          browserURL = `microsoft-edge://${currentLink}`;
+          break;
+        case 'safari':
+          browserURL = `safari://${currentLink}`;
+          break;
+        case 'opera':
+          browserURL = `opera://${currentLink}`;
+          break;
+        default:
+          alert('Browser not supported.');
+          return;
+      }
+
+      try {
+        window.open(browserURL, '_self');
+      } catch (error) {
+        alert(`Failed to open ${selectedBrowser}. Make sure the browser is installed.`);
+      }
+    } else {
+      alert('No link selected.');
+    }
+  }
+
+
+</script>
+
+<style>
+  .link-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .link-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 0, 255, 0.4);
+
+  }
+
+  .link-card-enter {
+    animation: fadeInUp 0.5s ease-in-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+</html>
